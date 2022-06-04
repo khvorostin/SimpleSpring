@@ -1,0 +1,4 @@
+server:
+  port: 8410
+  servlet:
+    context-path: /showroom
