@@ -40,4 +40,23 @@ public class ProductsRepository {
     public void addProduct(Product product) {
         productList.add(product);
     }
+
+    public void edit(Long id, Map< String, Object> newValues) {
+
+        Product product = findOne(id);
+        if (null == product) {
+            return;
+        }
+
+        for (Map.Entry<String, Object> entry : newValues.entrySet()) {
+            String key = entry.getKey();
+            if (key.equals("title")) {
+                product.setTitle((String) entry.getValue());
+            } else if (key.equals("cost")) {
+                product.setCost((Double) entry.getValue());
+            } else {
+                throw new RuntimeException("You can change only title or cost");
+            }
+        }
+    }
 }

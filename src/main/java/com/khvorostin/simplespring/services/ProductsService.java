@@ -5,7 +5,9 @@ import com.khvorostin.simplespring.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductsService {
@@ -31,4 +33,37 @@ public class ProductsService {
         return nextId;
     }
 
+    public void decrCost(Long id) {
+        Product product = findOne(id);
+        // продукт не найден
+        if (null == product) {
+            return;
+        }
+
+        double cost = product.getCost();
+        // цена не может быть меньше нуля
+        if (cost <= 0) {
+            return;
+        }
+
+        Map<String, Object> newValues = new HashMap<>();
+        newValues.put("cost", --cost);
+
+        productsRepository.edit(id, newValues);
+    }
+
+    public void incCost(Long id) {
+        Product product = findOne(id);
+        // продукт не найден
+        if (null == product) {
+            return;
+        }
+
+        double cost = product.getCost();
+
+        Map<String, Object> newValues = new HashMap<>();
+        newValues.put("cost", ++cost);
+
+        productsRepository.edit(id, newValues);
+    }
 }
