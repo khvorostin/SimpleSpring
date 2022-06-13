@@ -17,9 +17,11 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Модель</th>
-            <th>Цена</th>
+            <th>Model</th>
+            <th>Cost</th>
             <th></th>
+            <th>Cost--</th>
+            <th>Cost++</th>
         </tr>
         </thead>
         <tbody>
@@ -27,7 +29,9 @@
             <td th:text="${p.id}"></td>
             <td th:text="${p.title}"></td>
             <td th:text="${p.cost}"></td>
-            <td><a th:href="@{'/products/'+${p.id}}">Details</a></td>
+            <td><a th:href="@{'/products/'+${p.id}}" type="button" class="btn btn-primary">Details</a></td>
+            <td><a th:href="@{'/products/'+${p.id}+'/decr'}" type="button" class="btn btn-primary">[ – ]</a></td>
+            <td><a th:href="@{'/products/'+${p.id}+'/incr'}" type="button" class="btn btn-primary">[ + ]</a></td>
         </tr>
         </tbody>
     </table>

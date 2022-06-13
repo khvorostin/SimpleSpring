@@ -42,9 +42,20 @@ public class ProductController {
     // POST http:://localhost:8410/showroom/products/add
     @PostMapping(value = "/products/add")
     public String addProduct(@RequestParam String title, @RequestParam double cost) {
-        System.out.println(title);
-        System.out.println(cost);
         Long id = productsService.addProduct(title, cost);
         return "redirect:/products/" + id.toString();
+    }
+
+    // GET http://localhost:8410/showroom/products/{id}/incr
+    // GET http://localhost:8410/showroom/products/{id}/decr
+    @GetMapping(value = "/products/{id}/{action}")
+    public String changeCost(@PathVariable("id") Long id, @PathVariable("action") String action) {
+        if (action.equals("decr")) {
+            productsService.decrCost(id);
+        } else if (action.equals("incr")) {
+            productsService.incCost(id);
+        }
+
+        return "redirect:/products";
     }
 }
