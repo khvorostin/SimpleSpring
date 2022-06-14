@@ -1,21 +1,19 @@
 package com.khvorostin.simplespring.services;
 
 import com.khvorostin.simplespring.models.Product;
-import com.khvorostin.simplespring.repositories.ProductsRepository;
+import com.khvorostin.simplespring.repositories.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProductsService {
 
-    private ProductsRepository productsRepository;
+    private ProductDao productsRepository;
 
     @Autowired
-    public ProductsService(ProductsRepository productsRepository) {
+    public ProductsService(ProductDao productsRepository) {
         this.productsRepository = productsRepository;
     }
 
@@ -24,13 +22,16 @@ public class ProductsService {
     }
 
     public Product findOne(Long id) {
-        return productsRepository.findOne(id);
+        return productsRepository.findById(id);
     }
 
     public Long addProduct(String title, double cost) {
-        Long nextId = productsRepository.getNextId();
-        productsRepository.addProduct(new Product(nextId, title, cost));
-        return nextId;
+        Product nextProduct = new Product();
+        nextProduct.setTitle(title);
+        nextProduct.setCost(cost);
+
+        Product product = productsRepository.saveOrUpdate(nextProduct);
+        return product.getId();
     }
 
     public void decrCost(Long id) {
@@ -46,10 +47,8 @@ public class ProductsService {
             return;
         }
 
-        Map<String, Object> newValues = new HashMap<>();
-        newValues.put("cost", --cost);
-
-        productsRepository.edit(id, newValues);
+        product.setCost(--cost);
+        productsRepository.saveOrUpdate(product);
     }
 
     public void incCost(Long id) {
@@ -60,10 +59,7 @@ public class ProductsService {
         }
 
         double cost = product.getCost();
-
-        Map<String, Object> newValues = new HashMap<>();
-        newValues.put("cost", ++cost);
-
-        productsRepository.edit(id, newValues);
+        product.setCost(++cost);
+        productsRepository.saveOrUpdate(product);
     }
 }

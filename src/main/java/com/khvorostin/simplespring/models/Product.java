@@ -1,9 +1,20 @@
 package com.khvorostin.simplespring.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "price")
     private double cost;
 
     public Product(Long id, String title, double cost) {
@@ -11,6 +22,8 @@ public class Product {
         this.title = title;
         this.cost = cost;
     }
+
+    public Product() {}
 
     public Long getId() {
         return id;
