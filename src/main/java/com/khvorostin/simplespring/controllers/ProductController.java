@@ -41,7 +41,7 @@ public class ProductController {
 
     // POST http:://localhost:8410/showroom/products/add
     @PostMapping(value = "/products/add")
-    public String addProduct(@RequestParam String title, @RequestParam double cost) {
+    public String addProduct(@RequestParam String title, @RequestParam double cost) throws Exception {
         Long id = productsService.addProduct(title, cost);
         return "redirect:/products/" + id.toString();
     }
