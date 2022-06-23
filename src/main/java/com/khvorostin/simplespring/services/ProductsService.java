@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.List;
 
 @Service
@@ -17,18 +16,18 @@ public class ProductsService {
     private final SessionFactory sessionFactory;
 
     @Autowired
-    private final ProductDao productsRepository;
+    private final ProductDao productDao;
 
-    public ProductsService(ProductDao productsRepository) {
+    public ProductsService(ProductDao productDao) {
         sessionFactory = ShowRoomApp.sessionFactoryBean();
-        this.productsRepository = productsRepository;
+        this.productDao = productDao;
     }
 
     public List< Product > findAll() {
         List< Product > products;
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
-            products = productsRepository.findAll(session);
+            products = productDao.findAll(session);
             session.getTransaction().commit();
         }
         return products;
@@ -38,7 +37,7 @@ public class ProductsService {
         Product product;
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
-            product = productsRepository.findById(session, id);
+            product = productDao.findById(session, id);
             session.getTransaction().commit();
         }
         return product;
@@ -52,7 +51,7 @@ public class ProductsService {
         Product product;
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
-            product = productsRepository.saveOrUpdate(session, nextProduct);
+            product = productDao.saveOrUpdate(session, nextProduct);
             session.getTransaction().commit();
         }
 
@@ -65,7 +64,7 @@ public class ProductsService {
     public void decrCost(Long id) {
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
-            Product product = productsRepository.findById(session, id);
+            Product product = productDao.findById(session, id);
             // продукт не найден
             if (null == product) {
                 return;
@@ -78,7 +77,7 @@ public class ProductsService {
             }
 
             product.setCost(--cost);
-            productsRepository.saveOrUpdate(session, product);
+            productDao.saveOrUpdate(session, product);
             session.getTransaction().commit();
         }
     }
@@ -86,7 +85,7 @@ public class ProductsService {
     public void incCost(Long id) {
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
-            Product product = productsRepository.findById(session, id);
+            Product product = productDao.findById(session, id);
             // продукт не найден
             if (null == product) {
                 return;
@@ -94,7 +93,7 @@ public class ProductsService {
 
             double cost = product.getCost();
             product.setCost(++cost);
-            productsRepository.saveOrUpdate(session, product);
+            productDao.saveOrUpdate(session, product);
             session.getTransaction().commit();
         }
     }
