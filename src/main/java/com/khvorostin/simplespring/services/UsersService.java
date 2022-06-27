@@ -1,5 +1,6 @@
 package com.khvorostin.simplespring.services;
 
+import com.khvorostin.simplespring.SessionFactoryBean;
 import com.khvorostin.simplespring.ShowRoomApp;
 import com.khvorostin.simplespring.models.User;
 import com.khvorostin.simplespring.repositories.UserDao;
@@ -19,7 +20,7 @@ public class UsersService {
     private final UserDao userDao;
 
     public UsersService(UserDao userDao) {
-        sessionFactory = ShowRoomApp.sessionFactoryBean();
+        sessionFactory = SessionFactoryBean.getSessionFactory();
         this.userDao = userDao;
     }
 

@@ -1,9 +1,7 @@
 package com.khvorostin.simplespring.repositories;
 
-import com.khvorostin.simplespring.ShowRoomApp;
 import com.khvorostin.simplespring.models.Product;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +10,7 @@ import java.util.*;
 @Component
 public class ProductDao {
 
-    private SessionFactory sessionFactory;
-
-    public ProductDao() {
-        sessionFactory = ShowRoomApp.sessionFactoryBean();
-    }
+    public ProductDao() {}
 
     public Product findById(Session session, Long id) {
         return session.get(Product.class, id);

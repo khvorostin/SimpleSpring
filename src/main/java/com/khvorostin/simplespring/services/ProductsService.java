@@ -1,5 +1,6 @@
 package com.khvorostin.simplespring.services;
 
+import com.khvorostin.simplespring.SessionFactoryBean;
 import com.khvorostin.simplespring.ShowRoomApp;
 import com.khvorostin.simplespring.models.Product;
 import com.khvorostin.simplespring.repositories.ProductDao;
@@ -19,7 +20,7 @@ public class ProductsService {
     private final ProductDao productDao;
 
     public ProductsService(ProductDao productDao) {
-        sessionFactory = ShowRoomApp.sessionFactoryBean();
+        sessionFactory = SessionFactoryBean.getSessionFactory();
         this.productDao = productDao;
     }
 

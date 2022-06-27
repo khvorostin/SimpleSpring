@@ -1,9 +1,7 @@
 package com.khvorostin.simplespring.repositories;
 
-import com.khvorostin.simplespring.ShowRoomApp;
 import com.khvorostin.simplespring.models.Order;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +10,7 @@ import java.util.*;
 @Component
 public class OrderDao {
 
-    private SessionFactory sessionFactory;
-
-    public OrderDao() {
-        sessionFactory = ShowRoomApp.sessionFactoryBean();
-    }
+    public OrderDao() {}
 
     public Order findById(Session session, Long id) {
         return session.get(Order.class, id);

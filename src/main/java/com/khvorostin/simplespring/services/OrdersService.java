@@ -1,5 +1,6 @@
 package com.khvorostin.simplespring.services;
 
+import com.khvorostin.simplespring.SessionFactoryBean;
 import com.khvorostin.simplespring.ShowRoomApp;
 import com.khvorostin.simplespring.models.Order;
 import com.khvorostin.simplespring.repositories.OrderDao;
@@ -16,7 +17,7 @@ public class OrdersService {
     private final OrderDao orderDao;
 
     public OrdersService(OrderDao orderDao) {
-        sessionFactory = ShowRoomApp.sessionFactoryBean();
+        sessionFactory = SessionFactoryBean.getSessionFactory();
         this.orderDao = orderDao;
     }
 

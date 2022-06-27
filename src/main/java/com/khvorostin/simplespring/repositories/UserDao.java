@@ -1,20 +1,16 @@
 package com.khvorostin.simplespring.repositories;
 
-import com.khvorostin.simplespring.ShowRoomApp;
 import com.khvorostin.simplespring.models.User;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class UserDao {
 
-    private SessionFactory sessionFactory;
-
-    public UserDao() {
-        sessionFactory = ShowRoomApp.sessionFactoryBean();
-    }
+    public UserDao() {}
 
     public User findById(Session session, Long id) {
         return session.get(User.class, id);

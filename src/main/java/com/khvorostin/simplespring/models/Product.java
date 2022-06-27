@@ -19,7 +19,7 @@ public class Product {
     @Column(name = "price")
     private double cost;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     List<Order> orders;
 
     public Product(Long id, String title, double cost) {
