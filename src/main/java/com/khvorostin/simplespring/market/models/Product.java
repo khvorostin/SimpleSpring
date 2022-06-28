@@ -1,8 +1,6 @@
-package com.khvorostin.simplespring.models;
+package com.khvorostin.simplespring.market.models;
 
-import jakarta.persistence.*;
-
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
@@ -17,18 +15,7 @@ public class Product {
     private String title;
 
     @Column(name = "price")
-    private double cost;
-
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    List<Order> orders;
-
-    public Product(Long id, String title, double cost) {
-        this.id = id;
-        this.title = title;
-        this.cost = cost;
-    }
-
-    public Product() {}
+    private int price;
 
     public Long getId() {
         return id;
@@ -46,11 +33,11 @@ public class Product {
         this.title = title;
     }
 
-    public double getCost() {
-        return cost;
+    public int getPrice() {
+        return price;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
