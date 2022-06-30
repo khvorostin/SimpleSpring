@@ -1,5 +1,6 @@
 package com.khvorostin.simplespring.controllers;
 
+import com.khvorostin.simplespring.services.HistoryService;
 import com.khvorostin.simplespring.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ProductController {
 
     private ProductsService productsService;
+    private HistoryService historyService;
 
     @Autowired
-    public ProductController(ProductsService productsService) {
+    public ProductController(ProductsService productsService, HistoryService historyService) {
         this.productsService = productsService;
+        this.historyService = historyService;
     }
 
     // GET http://localhost:8410/showroom/products
@@ -57,5 +60,11 @@ public class ProductController {
         }
 
         return "redirect:/products";
+    }
+
+    @GetMapping(value = "/products/history/{id}")
+    public String showHistory(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("historyByProduct", historyService.findUsersByProductId(id));
+        return "history-by-product";
     }
 }

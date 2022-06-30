@@ -15,5 +15,7 @@
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="com.khvorostin.simplespring.models.Product"/>
+        <mapping class="com.khvorostin.simplespring.models.User"/>
+        <mapping class="com.khvorostin.simplespring.models.Order"/>
     </session-factory>
 </hibernate-configuration>

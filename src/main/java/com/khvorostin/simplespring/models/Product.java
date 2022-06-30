@@ -1,6 +1,9 @@
 package com.khvorostin.simplespring.models;
 
 import jakarta.persistence.*;
+
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -15,6 +18,9 @@ public class Product {
 
     @Column(name = "price")
     private double cost;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    List<Order> orders;
 
     public Product(Long id, String title, double cost) {
         this.id = id;
