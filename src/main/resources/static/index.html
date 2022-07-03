@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="market-front" lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Каталог</title>
+    <title ng-bind="pageTitle">Каталог</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -12,10 +12,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="app.js"></script>
 </head>
-<body ng-app="market-front">
-<div class="container" ng-controller="appController">
-    <h2>Каталог</h2>
-    <table class="table">
+<body ng-controller="appController">
+<div class="container">
+    <h1>{{ pageTitle }}</h1>
+    <button type="button" class="btn btn-primary" ng-click="loadProducts(1)" >Update</button>
+    <br>
+    <table class="table table-striped">
         <thead>
         <tr>
             <td>ID</td>
@@ -35,7 +37,21 @@
         </tr>
         </tbody>
     </table>
-    <button type="button" class="btn btn-primary" ng-click="loadProducts()" >Update</button>
+    <br>
+    <nav aria-label="...">
+        <ul class="pagination">
+            <div ng-repeat="page in pages">
+                <div ng-if="page == currPage">
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href=#" ng-click="loadProducts(page)">{{ page }}</a>
+                    </li>
+                </div>
+                <div ng-if="page != currPage">
+                    <li class="page-item"><a class="page-link" href="#" ng-click="loadProducts(page)">{{ page}}</a></li>
+                </div>
+            </div>
+        </ul>
+    </nav>
 </div>
 </body>
 </html>

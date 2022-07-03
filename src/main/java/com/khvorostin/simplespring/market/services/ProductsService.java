@@ -2,6 +2,8 @@ package com.khvorostin.simplespring.market.services;
 
 import com.khvorostin.simplespring.market.models.Product;
 import com.khvorostin.simplespring.market.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +18,8 @@ public class ProductsService {
         this.productRepository = productRepository;
     }
 
-    public List< Product > findAll() {
-        return productRepository.findAll();
+    public Page< Product > findAll(int pageIndex, int pageSize) {
+        return productRepository.findAll(PageRequest.of(pageIndex, pageSize));
     }
 
     public Optional<Product> findById(Long id) {
