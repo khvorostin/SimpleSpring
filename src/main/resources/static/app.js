@@ -1,6 +1,6 @@
 var appController = function ($scope, $http) {
 
-    const contextPath = 'http://localhost:8410/market/';
+    const contextPath = 'http://localhost:8410/market/api/v1/';
     $scope.pageTitle = 'Каталог';
 
     $scope.loadProducts = function(pageIndex = 1) {
@@ -13,6 +13,17 @@ var appController = function ($scope, $http) {
     }
 
     $scope.loadProducts(1);
+
+    $scope.createNewProduct = function () {
+        $http.post(contextPath + 'products', $scope.new_product)
+            .then(function successCallback(response) {
+                    $scope.loadProducts(currentPageIndex);
+                    $scope.new_product = null;
+                }, function failCallback(response) {
+                    alert(response.data.message);
+                }
+            );
+    }
 }
 
 var performLoadProducts = function($scope, $http, contextPath, pageIndex) {
