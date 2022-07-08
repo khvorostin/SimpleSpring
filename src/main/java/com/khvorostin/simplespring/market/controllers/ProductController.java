@@ -2,12 +2,15 @@ package com.khvorostin.simplespring.market.controllers;
 
 import com.khvorostin.simplespring.market.models.Product;
 import com.khvorostin.simplespring.market.services.ProductsService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class ProductController {
+
+    private static final int PAGE_SIZE = 10;
 
     private ProductsService productsService;
 
@@ -16,8 +19,12 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List< Product > findAll() {
-        return productsService.findAll();
+    public Page< Product > findAll(@RequestParam (name = "p", defaultValue = "1") int pageIndex) {
+        if (pageIndex < 1) {
+            pageIndex = 1;
+        }
+
+        return productsService.findAll(pageIndex-1, PAGE_SIZE);
     }
 
 
