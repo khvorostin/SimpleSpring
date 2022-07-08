@@ -42,8 +42,11 @@ public class ProductsService {
         return productRepository.findAllByPriceBetween(minPrice, maxPrice);
     }
 
-    public void delete(Product product) {
-        productRepository.delete(product);
+    public void delete(Long id) {
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isPresent()) {
+            productRepository.delete(product.get());
+        }
     }
 
 }
