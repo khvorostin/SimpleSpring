@@ -1,1 +1,18 @@
 <h3>Товары в корзине</h3>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Название</td>
+        <td>Цена</td>
+        <td>Количество</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="p in products">
+        <td>{{p.title}}</td>
+        <td class="text-end">{{p.price | currency}}</td>
+        <td>{{p.count}}</td>
+    </tr>
+    </tbody>
+</table>

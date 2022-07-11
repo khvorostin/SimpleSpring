@@ -41,19 +41,11 @@ public class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Product save(@RequestBody Product product) {
-//        Product product = new Product();
-//        product.setId(p.getId());
-//        product.setTitle(p.getTitle());
-//        product.setPrice(p.getPrice());
         return productsService.save(product);
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Product update(@RequestBody Product product) {
-//        Product product = new Product();
-//        product.setId(p.getId());
-//        product.setTitle(p.getTitle());
-//        product.setPrice(p.getPrice());
         return productsService.save(product);
     }
 

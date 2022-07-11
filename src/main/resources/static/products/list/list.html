@@ -10,6 +10,8 @@
         <td>Цена</td>
         <td>Изменить</td>
         <td>Удалить</td>
+        <td>[ – ]</td>
+        <td>[ + ]</td>
     </tr>
     </thead>
     <tbody>
@@ -23,6 +25,13 @@
         <td>
             <button type="button" class="btn btn-danger" ng-click="dropItem(p.id)" >Удалить</button>
         </td>
+        <td>
+            <button type="button" class="btn btn-primary" ng-click="dropItemFromCart(p.id)" >[ – ]</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-primary" ng-click="attItemToCart(p.id)" >[ + ]</button>
+        </td>
+
     </tr>
     </tbody>
 </table>

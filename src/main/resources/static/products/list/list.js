@@ -18,8 +18,17 @@ var productsListController = function($scope, $http, $routeParams, $location) {
         $location.path('/store');
     }
 
-    $scope.loadProducts(1);
+    $scope.addItemToCart = function(productId) {
+        $http.post(contextPath + '/cart/' + productId);
+        $location.path('/cart');
+    }
 
+    $scope.dropItemFromCart = function(productId) {
+        $http.delete(contextPath + '/cart/' + productId);
+        $location.path('/cart');
+    }
+
+    $scope.loadProducts(1);
 }
 
 var performLoadProducts = function($scope, $http, contextPath, pageIndex) {
