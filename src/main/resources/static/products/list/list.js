@@ -23,11 +23,6 @@ var productsListController = function($scope, $http, $routeParams, $location) {
         $location.path('/cart');
     }
 
-    $scope.dropItemFromCart = function(productId) {
-        $http.delete(contextPath + '/cart/' + productId);
-        $location.path('/cart');
-    }
-
     $scope.loadProducts(1);
 }
 

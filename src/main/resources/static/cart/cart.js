@@ -7,8 +7,13 @@ var cartController = function($scope, $http, $routeParams, $location) {
             method: 'GET'
         }).then(function (response) {
             console.log(response);
-            $scope.cart = response.data.content;
+            $scope.cart = response.data;
         });
+    }
+
+    $scope.dropItemFromCart = function(productId) {
+        $http.delete(contextPath + '/cart/' + productId);
+        $location.path('/cart');
     }
 
     $scope.loadCart();

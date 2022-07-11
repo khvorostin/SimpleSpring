@@ -1,6 +1,6 @@
 <h1>Каталог</h1>
 <button type="button" class="btn btn-primary" ng-click="loadProducts(1)" >Обновить страницу</button>
-<button type="button" class="btn btn-primary" ng-click="createNewProduct()" >Добавить позицию</button>
+<!-- button type="button" class="btn btn-primary" ng-click="createNewProduct()" >Добавить позицию</button -->
 <br>
 <table class="table table-striped">
     <thead>
@@ -10,7 +10,6 @@
         <td>Цена</td>
         <td>Изменить</td>
         <td>Удалить</td>
-        <td>[ – ]</td>
         <td>[ + ]</td>
     </tr>
     </thead>
@@ -26,10 +25,7 @@
             <button type="button" class="btn btn-danger" ng-click="dropItem(p.id)" >Удалить</button>
         </td>
         <td>
-            <button type="button" class="btn btn-primary" ng-click="dropItemFromCart(p.id)" >[ – ]</button>
-        </td>
-        <td>
-            <button type="button" class="btn btn-primary" ng-click="attItemToCart(p.id)" >[ + ]</button>
+            <button type="button" class="btn btn-primary" ng-click="addItemToCart(p.id)" >[ + ]</button>
         </td>
 
     </tr>
