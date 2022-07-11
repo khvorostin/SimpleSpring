@@ -1,0 +1,43 @@
+<h1>Каталог</h1>
+<button type="button" class="btn btn-primary" ng-click="loadProducts(1)" >Обновить страницу</button>
+<button type="button" class="btn btn-primary" ng-click="createNewProduct()" >Добавить позицию</button>
+<br>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Артикул</td>
+        <td>Название</td>
+        <td>Цена</td>
+        <td>Изменить</td>
+        <td>Удалить</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="p in products">
+        <td>{{p.id}}</td>
+        <td>{{p.title}}</td>
+        <td class="text-end">{{p.price | currency}}</td>
+        <td>
+            <button type="button" class="btn btn-success" ng-click="editItem(p.id)" >Изменить</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger" ng-click="dropItem(p.id)" >Удалить</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<nav aria-label="Навигация">
+    <ul class="pagination">
+        <div ng-repeat="pageIndex in pages">
+            <div ng-if="pageIndex == currPage">
+                <li class="page-item active" aria-current="page">
+                    <button class="page-link" href=#" ng-click="loadProducts(pageIndex)">{{ pageIndex }}</button>
+                </li>
+            </div>
+            <div ng-if="pageIndex != currPage">
+                <li class="page-item"><button class="page-link" href="#" ng-click="loadProducts(pageIndex)">{{ pageIndex }}</button></li>
+            </div>
+        </div>
+    </ul>
+</nav>
