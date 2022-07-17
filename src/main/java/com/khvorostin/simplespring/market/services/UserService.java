@@ -1,5 +1,6 @@
 package com.khvorostin.simplespring.market.services;
 
+import com.khvorostin.simplespring.market.models.Privilege;
 import com.khvorostin.simplespring.market.models.Role;
 import com.khvorostin.simplespring.market.models.User;
 import com.khvorostin.simplespring.market.repositories.UserRepository;
@@ -12,7 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -39,8 +42,21 @@ public class UserService implements UserDetailsService {
     }
 
     private Collection<? extends GrantedAuthority > mapRolesToAuthorities(Collection< Role > roles) {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+
+        List<String> privileges = new ArrayList<>();
+        List< Privilege > collection = new ArrayList<>();
+
+        for (Role role : roles) {
+            privileges.add(role.getName());
+            collection.addAll(role.getPrivileges());
+        }
+
+        for (Privilege item : collection) {
+            privileges.add(item.getName());
+        }
+
+        return privileges.stream()
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 }

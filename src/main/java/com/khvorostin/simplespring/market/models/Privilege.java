@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "rprivileges")
+public class Privilege {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,13 +14,6 @@ public class Role {
 
     @Column(name = "name")
     private String name;
-
-    @ManyToMany
-    @JoinTable(name = "roles_to_privileges",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id"))
-    private Collection< Privilege > privileges;
-
 
     public Long getId() {
         return id;
@@ -36,9 +29,5 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Collection< Privilege > getPrivileges() {
-        return privileges;
     }
 }

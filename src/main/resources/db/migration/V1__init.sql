@@ -33,11 +33,7 @@ CREATE TABLE roles (
 
 INSERT INTO roles (id, name) VALUES
     (1, 'ROLE_USER'),
-    (2, 'ROLE_ADMIN'),
-    (3, 'ADD_PRODUCT'),
-    (4, 'EDIT_PRODUCT'),
-    (5, 'DROP_PRODUCT'),
-    (6, 'VIEW_CART');
+    (2, 'ROLE_ADMIN');
 
 CREATE TABLE users (
     id bigserial PRIMARY KEY,
@@ -60,8 +56,29 @@ CREATE TABLE users_to_roles (
 
 INSERT INTO users_to_roles (user_id, role_id) VALUES
     (1, 2),
-    (1, 3),
+    (2, 1);
+
+CREATE TABLE rprivileges (
+    id bigserial PRIMARY KEY,
+    name varchar(50) not null
+);
+
+INSERT INTO rprivileges (id, name) VALUES
+    (1, 'ADD_PRODUCT'),
+    (2, 'EDIT_PRODUCT'),
+    (3, 'DROP_PRODUCT'),
+    (4, 'VIEW_CART');
+
+CREATE TABLE roles_to_privileges (
+    role_id bigint not null,
+    privilege_id bigint not null,
+    PRIMARY KEY (role_id, privilege_id),
+    FOREIGN KEY (role_id) REFERENCES roles (id),
+    FOREIGN KEY (privilege_id) REFERENCES rprivileges (id)
+);
+
+INSERT INTO roles_to_privileges (role_id, privilege_id) VALUES
     (1, 4),
-    (1, 5),
     (2, 1),
-    (2, 6);
+    (2, 2),
+    (2, 3);
