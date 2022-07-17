@@ -1,0 +1,24 @@
+<h3>Товары в корзине</h3>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Название</td>
+        <td>Количество</td>
+        <td>Цена за шт.</td>
+        <td>Цена общая</td>
+        <td>[ – ]</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="p in cart">
+        <td>{{p.title}}</td>
+        <td>{{p.counter}}</td>
+        <td class="text-end">{{p.price | currency}}</td>
+        <td class="text-end">{{p.price * p.counter | currency}}</td>
+        <td>
+            <button type="button" class="btn btn-primary" ng-click="dropItemFromCart(p.id)" >[ – ]</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
