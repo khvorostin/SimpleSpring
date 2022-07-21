@@ -69,6 +69,7 @@ public class UserService implements UserDetailsService {
 
     public User save(User user) {
         String hash = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setId(1L); // костыль, чтобы обойти ошибку "Нарушение уникального индекса или первичного ключа"
         user.setPassword(hash);
         return userRepository.save(user);
     }
