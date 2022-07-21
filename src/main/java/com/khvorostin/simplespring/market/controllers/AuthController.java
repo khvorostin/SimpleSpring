@@ -3,6 +3,8 @@ package com.khvorostin.simplespring.market.controllers;
 import com.khvorostin.simplespring.market.dto.AuthRequest;
 import com.khvorostin.simplespring.market.dto.AuthResponse;
 import com.khvorostin.simplespring.market.exceptions.MarketError;
+import com.khvorostin.simplespring.market.models.Product;
+import com.khvorostin.simplespring.market.models.User;
 import com.khvorostin.simplespring.market.services.UserService;
 import com.khvorostin.simplespring.market.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -45,5 +44,11 @@ public class AuthController {
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(token));
+    }
+
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User save(@RequestBody User user) {
+        return userService.save(user);
     }
 }

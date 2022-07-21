@@ -1,15 +1,18 @@
 package com.khvorostin.simplespring.market.services;
 
 import com.khvorostin.simplespring.market.models.Privilege;
+import com.khvorostin.simplespring.market.models.Product;
 import com.khvorostin.simplespring.market.models.Role;
 import com.khvorostin.simplespring.market.models.User;
 import com.khvorostin.simplespring.market.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +28,12 @@ public class UserService implements UserDetailsService {
     @Autowired
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    @Autowired
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -58,5 +65,11 @@ public class UserService implements UserDetailsService {
         return privileges.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+    }
+
+    public User save(User user) {
+        String hash = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(hash);
+        return userRepository.save(user);
     }
 }
