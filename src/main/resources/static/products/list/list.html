@@ -8,9 +8,9 @@
         <td>Артикул</td>
         <td>Название</td>
         <td>Цена</td>
-        <td>Изменить</td>
-        <td>Удалить</td>
-        <td>[ + ]</td>
+        <td ng-show="isUserLoggedIn()">Изменить</td>
+        <td ng-show="isUserLoggedIn()">Удалить</td>
+        <td ng-show="isUserLoggedIn()">[ + ]</td>
     </tr>
     </thead>
     <tbody>
@@ -18,13 +18,13 @@
         <td>{{p.id}}</td>
         <td>{{p.title}}</td>
         <td class="text-end">{{p.price | currency}}</td>
-        <td>
+        <td ng-show="isUserLoggedIn()">
             <button type="button" class="btn btn-success" ng-click="editItem(p.id)" >Изменить</button>
         </td>
-        <td>
+        <td ng-show="isUserLoggedIn()">
             <button type="button" class="btn btn-danger" ng-click="dropItem(p.id)" >Удалить</button>
         </td>
-        <td>
+        <td ng-show="isUserLoggedIn()">
             <button type="button" class="btn btn-primary" ng-click="addItemToCart(p.id)" >[ + ]</button>
         </td>
 
